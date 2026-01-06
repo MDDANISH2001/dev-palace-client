@@ -6,6 +6,8 @@ export const handleProfileClick = (
   userType: string,
   navigate: NavigateFunction
 ) => {
+  console.log('userType :', userType);
+  console.log(" clicked:");
   if (userType === "client") {
     // Navigate to client profile
     navigate("/client/profile");

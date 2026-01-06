@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router";
+import { Route, Routes } from "react-router";
 import { AnimatePresence } from "motion/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,13 +12,12 @@ import { DeveloperLanding } from "./Pages/Landing/DeveloperLanding";
 import { ClientLanding } from "./Pages/Landing/ClientLanding";
 import ProjectList from "./Pages/Projects/ProjectList";
 import ProjectDetails from "./Pages/Projects/ProjectDetails";
-import DeveloperProfile from "./Pages/DeveloperProfile/DeveloperProfile";
+import DeveloperProfile from "./Pages/Developer/DeveloperProfile/DeveloperProfile";
+import { VerifyEmail } from "./Pages/Auth/VerifyEmail";
+import { ChatView } from "./Pages/Chats/ChatView";
 
 function App() {
-  const location = useLocation();
-  const pathName = location.pathname;
-  const isDeveloperRoute = pathName.startsWith("/developer");
-  const isClientRoute = pathName.startsWith("/client");
+  const role = JSON.parse(localStorage.getItem("user") || "{}").userType;
 
   return (
     <div className="w-screen h-screen overflow-auto bg-background flex flex-col">
@@ -34,11 +33,7 @@ function App() {
         pauseOnHover
         theme="dark"
       />{" "}
-      <Navbar
-        userRole={
-          isDeveloperRoute ? "developer" : isClientRoute ? "client" : "guest"
-        }
-      />
+      <Navbar userRole={role ? role : "guest"} />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Landing />} />
@@ -82,9 +77,19 @@ function App() {
               />
             }
           />
+          <Route
+            path="/chats"
+            element={
+              <ProtectedRoute
+                component={ChatView}
+                allowedRoles={["client", "developer"]}
+              />
+            }
+          />
 
           {/* Public Developer Profile Route */}
           <Route path="/profile/:devId" element={<DeveloperProfile />} />
+          <Route path="/verify-email/:token" element={<VerifyEmail />} />
         </Routes>
       </AnimatePresence>
     </div>

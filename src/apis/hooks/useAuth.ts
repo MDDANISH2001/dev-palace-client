@@ -11,6 +11,7 @@ import {
   developerRegister,
   developerLogin,
   logout,
+  verifyEmail,
 } from "../services/auth.service";
 import type {
   ClientRegisterRequest,
@@ -20,6 +21,7 @@ import type {
   AuthResponse,
 } from "../types/auth.types";
 import { ApiError } from "../config";
+import { toast } from "react-toastify";
 
 /**
  * Hook for client registration
@@ -110,6 +112,21 @@ export const useDeveloperLogin = (): UseMutationResult<
 };
 
 /**
+ * Hook for verifying email
+ */
+export const useVerifyEmail = (): UseMutationResult<void, ApiError, string> => {
+  return useMutation({
+    mutationFn: verifyEmail,
+    onSuccess: () => {
+      toast.success("Email verified successfully!");
+    },
+    onError: (error: ApiError) => {
+      console.error("Email verification error:", error.message);
+    },
+  });
+};
+
+/**
  * Hook for logout
  */
 export const useLogout = (): UseMutationResult<void, Error, void> => {
@@ -120,14 +137,14 @@ export const useLogout = (): UseMutationResult<void, Error, void> => {
     onSuccess: () => {
       // Clear user data from localStorage
       localStorage.removeItem("user");
-      
+
       // Invalidate and remove all auth-related queries to force re-fetch
       queryClient.invalidateQueries({ queryKey: ["auth"] });
       queryClient.removeQueries({ queryKey: ["auth"] });
-      
+
       // Clear all queries to ensure clean state (optional but recommended)
       queryClient.clear();
-      
+
       console.log("Logout successful - cache cleared");
     },
   });

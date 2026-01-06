@@ -4,8 +4,8 @@ import DeveloperDashboard from "../Developer/Dashboard/Dashboard.Developer";
 import { NotVerified } from "@/components/NotVerified/NotVerified";
 
 export const DeveloperLanding: React.FC = () => {
-  const user = localStorage.getItem("user");
-  const isVerified = user ? JSON.parse(user).isVerified : false;
+  const isVerified = localStorage.getItem("emailVerified");
+
   return isVerified ? (
     <div>
       <Routes>

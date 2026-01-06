@@ -284,7 +284,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                           variant={item.variant}
                           key={index}
                           disabled={logoutMutation.isPending}
-                          className="w-full px-4 py-3 text-sm font-medium rounded-lg transition-colors duration-200 flex items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
+                          className="cursor-pointer w-full px-4 py-3 text-sm font-medium rounded-lg transition-colors duration-200 flex items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
                         >
                           {/* <FiLogOut className="w-5 h-5" /> */}
                           {item.icon}

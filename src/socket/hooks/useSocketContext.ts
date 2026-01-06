@@ -28,19 +28,19 @@ export const useSocketAuth = () => {
 
   const connectSockets = () => {
     if (isAuthenticated) {
-      console.log("🔌 connectSockets called but already connected - ignoring")
+      // console.log("🔌 connectSockets called but already connected - ignoring")
       return
     }
-    console.log("🔌 Connecting sockets...")
+    // console.log("🔌 Connecting sockets...")
     setIsAuthenticated(true)
   }
 
   const disconnectSockets = () => {
     if (!isAuthenticated) {
-      console.log("🔌 disconnectSockets called but already disconnected - ignoring")
+      // console.log("🔌 disconnectSockets called but already disconnected - ignoring")
       return
     }
-    console.log("🔌 Disconnecting sockets...")
+    // console.log("🔌 Disconnecting sockets...")
     setIsAuthenticated(false)
   }
 

@@ -51,11 +51,11 @@ export const useMessaging = ({
     namespace: SOCKET_NAMESPACES.MESSAGING,
     enabled,
     onConnect: () => {
-      console.log("✅ Messaging socket connected")
+      // console.log("✅ Messaging socket connected")
       setConnected(true)
     },
     onDisconnect: () => {
-      console.log("❌ Messaging socket disconnected")
+      // console.log("❌ Messaging socket disconnected")
       setConnected(false)
     },
     onError: (error) => {
@@ -76,37 +76,37 @@ export const useMessaging = ({
 
     // New message received
     const handleNewMessage: MessagingServerEvents["message:new"] = (message) => {
-      console.log("📨 New message:", message)
+      // console.log("📨 New message:", message)
       addMessage(message)
     }
 
     // User typing
     const handleUserTyping: MessagingServerEvents["message:userTyping"] = (data) => {
-      console.log("⌨️ User typing:", data.userName)
+      // console.log("⌨️ User typing:", data.userName)
       setUserTyping(data.conversationId, data)
     }
 
     // User stopped typing
     const handleUserStoppedTyping: MessagingServerEvents["message:userStoppedTyping"] = (data) => {
-      console.log("✋ User stopped typing:", data.userId)
+      // console.log("✋ User stopped typing:", data.userId)
       removeUserTyping(data.conversationId, data.userId)
     }
 
     // Message read
     const handleMessageRead: MessagingServerEvents["message:read"] = (data) => {
-      console.log("✓ Message read:", data.messageId)
+      // console.log("✓ Message read:", data.messageId)
       markMessageAsRead(data.conversationId, data.messageId)
     }
 
     // Message deleted
     const handleMessageDeleted: MessagingServerEvents["message:deleted"] = (data) => {
-      console.log("🗑️ Message deleted:", data.messageId)
+      // console.log("🗑️ Message deleted:", data.messageId)
       deleteMessageStore(data.conversationId, data.messageId)
     }
 
     // Message edited
     const handleMessageEdited: MessagingServerEvents["message:edited"] = (data) => {
-      console.log("✏️ Message edited:", data.messageId)
+      // console.log("✏️ Message edited:", data.messageId)
       updateMessage(data.conversationId, data.messageId, { 
         message: data.newMessage, 
         edited: true 
@@ -115,7 +115,7 @@ export const useMessaging = ({
 
     // Message reaction
     const handleMessageReaction: MessagingServerEvents["message:reaction"] = (data) => {
-      console.log("❤️ Message reaction:", data.messageId, data.reaction)
+      // console.log("❤️ Message reaction:", data.messageId, data.reaction)
       updateMessage(data.conversationId, data.messageId, {
         reactions: [{ userId: data.userId, reaction: data.reaction }],
       })
@@ -123,7 +123,7 @@ export const useMessaging = ({
 
     // User status changed
     const handleUserStatusChanged: MessagingServerEvents["message:userStatusChanged"] = (data) => {
-      console.log("👤 User status:", data.userId, data.status)
+      // console.log("👤 User status:", data.userId, data.status)
       if (data.status === "online") {
         setUserOnline(data.userId)
       } else {
@@ -133,7 +133,7 @@ export const useMessaging = ({
 
     // Message history
     const handleMessageHistory: MessagingServerEvents["message:history"] = (data) => {
-      console.log("📚 Message history received:", data.conversationId, data.messages.length)
+      // console.log("📚 Message history received:", data.conversationId, data.messages.length)
       setMessages(data.conversationId, data.messages)
     }
 
@@ -195,7 +195,7 @@ export const useMessaging = ({
   const joinConversation = useCallback(
     (conversationId: string) => {
       if (!socket || !isConnected) {
-        console.warn("Cannot join conversation: socket not connected")
+        // console.warn("Cannot join conversation: socket not connected")
         return
       }
 
@@ -203,7 +203,7 @@ export const useMessaging = ({
         socket.emit("message:joinConversation", data)
       }
       emit({ conversationId })
-      console.log("🚪 Joining conversation:", conversationId)
+      // console.log("🚪 Joining conversation:", conversationId)
     },
     [socket, isConnected]
   )
@@ -212,7 +212,7 @@ export const useMessaging = ({
   const leaveConversation = useCallback(
     (conversationId: string) => {
       if (!socket || !isConnected) {
-        console.warn("Cannot leave conversation: socket not connected")
+        // console.warn("Cannot leave conversation: socket not connected")
         return
       }
 
@@ -220,7 +220,7 @@ export const useMessaging = ({
         socket.emit("message:leaveConversation", data)
       }
       emit({ conversationId })
-      console.log("👋 Leaving conversation:", conversationId)
+      // console.log("👋 Leaving conversation:", conversationId)
     },
     [socket, isConnected]
   )
@@ -233,7 +233,7 @@ export const useMessaging = ({
       attachments?: Array<{ url: string; type: string; name: string }>
     ) => {
       if (!socket || !isConnected) {
-        console.warn("Cannot send message: socket not connected")
+        // console.warn("Cannot send message: socket not connected")
         return
       }
 
@@ -241,7 +241,7 @@ export const useMessaging = ({
         socket.emit("message:send", data)
       }
       emit({ conversationId, message, attachments })
-      console.log("📤 Sending message to:", conversationId)
+      // console.log("📤 Sending message to:", conversationId)
     },
     [socket, isConnected]
   )
@@ -276,7 +276,7 @@ export const useMessaging = ({
   const markAsRead = useCallback(
     (conversationId: string, messageId: string) => {
       if (!socket || !isConnected) {
-        console.warn("Cannot mark as read: socket not connected")
+        // console.warn("Cannot mark as read: socket not connected")
         return
       }
 
@@ -292,7 +292,7 @@ export const useMessaging = ({
   const deleteMessage = useCallback(
     (conversationId: string, messageId: string) => {
       if (!socket || !isConnected) {
-        console.warn("Cannot delete message: socket not connected")
+        // console.warn("Cannot delete message: socket not connected")
         return
       }
 
@@ -308,7 +308,7 @@ export const useMessaging = ({
   const editMessage = useCallback(
     (conversationId: string, messageId: string, newMessage: string) => {
       if (!socket || !isConnected) {
-        console.warn("Cannot edit message: socket not connected")
+        // console.warn("Cannot edit message: socket not connected")
         return
       }
 
@@ -324,7 +324,7 @@ export const useMessaging = ({
   const reactToMessage = useCallback(
     (conversationId: string, messageId: string, reaction: string) => {
       if (!socket || !isConnected) {
-        console.warn("Cannot react to message: socket not connected")
+        // console.warn("Cannot react to message: socket not connected")
         return
       }
 
@@ -340,7 +340,7 @@ export const useMessaging = ({
   const getMessages = useCallback(
     (conversationId: string, page = 1, limit = 50) => {
       if (!socket || !isConnected) {
-        console.warn("Cannot get messages: socket not connected")
+        // console.warn("Cannot get messages: socket not connected")
         return
       }
 

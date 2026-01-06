@@ -44,11 +44,11 @@ export const useNotifications = ({
     namespace: SOCKET_NAMESPACES.NOTIFICATIONS,
     enabled,
     onConnect: () => {
-      console.log("✅ Notifications socket connected")
+      // console.log("✅ Notifications socket connected")
       setConnected(true)
     },
     onDisconnect: () => {
-      console.log("❌ Notifications socket disconnected")
+      // console.log("❌ Notifications socket disconnected")
       setConnected(false)
     },
     onError: (error) => {
@@ -69,7 +69,7 @@ export const useNotifications = ({
 
     // New notification received
     const handleNewNotification: NotificationServerEvents["notification:new"] = (notification) => {
-      console.log("🔔 New notification:", notification)
+      // console.log("🔔 New notification:", notification)
       addNotification(notification)
 
       // Optional: Show browser notification
@@ -84,14 +84,14 @@ export const useNotifications = ({
 
     // Unread count updated
     const handleUnreadCount: NotificationServerEvents["notification:unreadCount"] = (data) => {
-      console.log("📊 Unread count:", data.count)
+      // console.log("📊 Unread count:", data.count)
       setUnreadCount(data.count)
     }
 
     // Notification marked as read
     const handleReadSuccess: NotificationServerEvents["notification:readSuccess"] = (data) => {
       if (data.success) {
-        console.log("✓ Notification marked as read:", data.notificationId)
+        // console.log("✓ Notification marked as read:", data.notificationId)
         markAsReadStore(data.notificationId)
       }
     }
@@ -99,7 +99,7 @@ export const useNotifications = ({
     // Notification deleted
     const handleDeleteSuccess: NotificationServerEvents["notification:deleteSuccess"] = (data) => {
       if (data.success) {
-        console.log("🗑️ Notification deleted:", data.notificationId)
+        // console.log("🗑️ Notification deleted:", data.notificationId)
         deleteNotificationStore(data.notificationId)
       }
     }
@@ -142,7 +142,7 @@ export const useNotifications = ({
   const markAsRead = useCallback(
     (notificationId: string) => {
       if (!socket || !isConnected) {
-        console.warn("Cannot mark as read: socket not connected")
+        // console.warn("Cannot mark as read: socket not connected")
         return
       }
 
@@ -157,7 +157,7 @@ export const useNotifications = ({
   // Mark all notifications as read
   const markAllAsRead = useCallback(() => {
     if (!socket || !isConnected) {
-      console.warn("Cannot mark all as read: socket not connected")
+      // console.warn("Cannot mark all as read: socket not connected")
       return
     }
 
@@ -172,7 +172,7 @@ export const useNotifications = ({
   const deleteNotification = useCallback(
     (notificationId: string) => {
       if (!socket || !isConnected) {
-        console.warn("Cannot delete notification: socket not connected")
+        // console.warn("Cannot delete notification: socket not connected")
         return
       }
 
@@ -187,7 +187,7 @@ export const useNotifications = ({
   // Get unread count
   const getUnreadCount = useCallback(() => {
     if (!socket || !isConnected) {
-      console.warn("Cannot get unread count: socket not connected")
+      // console.warn("Cannot get unread count: socket not connected")
       return
     }
 
@@ -201,7 +201,7 @@ export const useNotifications = ({
   const subscribe = useCallback(
     (types: NotificationType[]) => {
       if (!socket || !isConnected) {
-        console.warn("Cannot subscribe: socket not connected")
+        // console.warn("Cannot subscribe: socket not connected")
         return
       }
 
@@ -217,7 +217,7 @@ export const useNotifications = ({
   const unsubscribe = useCallback(
     (types: NotificationType[]) => {
       if (!socket || !isConnected) {
-        console.warn("Cannot unsubscribe: socket not connected")
+        // console.warn("Cannot unsubscribe: socket not connected")
         return
       }
 

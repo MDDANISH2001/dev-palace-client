@@ -9,7 +9,6 @@ import {
 export const DeveloperDashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
-
       <div className="pt-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">

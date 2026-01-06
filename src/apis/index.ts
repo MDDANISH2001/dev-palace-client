@@ -27,6 +27,7 @@ export {
   clientLogin,
   developerRegister,
   developerLogin,
+  verifyEmail,
   logout,
 } from "./services/auth.service"
 

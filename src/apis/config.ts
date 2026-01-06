@@ -41,7 +41,8 @@ export const API_ENDPOINTS = {
   },
   COMMON: {
     GET_PROJECTS: "/common/get-projects",
-    DEVELOPER_PROFILE: (devId: string) => `/profile/${devId}`,
+    DEVELOPER_PROFILE: (devId: string) => `/common/profile/${devId}`, //TODO: needs to be created.
+    VERIFYEMAIL: (token: string) => `/common/verify-email?token=${token}`,
   },
   PROJECTS: {
     ANALYZE_SKILLS: "/projects/analyze-skills",

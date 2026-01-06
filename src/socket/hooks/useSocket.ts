@@ -56,7 +56,7 @@ export const useSocket = ({
     (err: SocketError) => {
       setError(err)
       setStatus("error")
-      console.error(`[Socket ${namespace}] Error:`, err)
+      // console.error(`[Socket ${namespace}] Error:`, err)
       // call latest onError via ref
       onErrorRef.current?.(err)
     },
@@ -65,13 +65,13 @@ export const useSocket = ({
 
   const connect = useCallback(() => {
     if (socketRef.current?.connected) {
-      console.log(`[Socket ${namespace}] Already connected`)
+      // console.log(`[Socket ${namespace}] Already connected`)
       return
     }
 
     try {
       setStatus("connecting")
-      console.log(`[Socket ${namespace}] Connecting...`)
+      // console.log(`[Socket ${namespace}] Connecting...`)
 
       const url = getSocketURL(namespace)
       const options = getSocketConnectionOptions()
@@ -81,7 +81,7 @@ export const useSocket = ({
 
       // Connection events
       socket.on("connect", () => {
-        console.log(`[Socket ${namespace}] Connected successfully`)
+        // console.log(`[Socket ${namespace}] Connected successfully`)
         setStatus("connected")
         setError(null)
         // use ref to call most recent callback
@@ -95,7 +95,7 @@ export const useSocket = ({
       })
 
       socket.on("connect_error", (err) => {
-        console.error(`[Socket ${namespace}] Connection error:`, err.message)
+        // console.error(`[Socket ${namespace}] Connection error:`, err.message)
         
         let errorType: SocketError["type"] = "connection"
         if (err.message.includes("authentication") || err.message.includes("token")) {
@@ -110,7 +110,7 @@ export const useSocket = ({
       })
 
       socket.on("error", (err) => {
-        console.error(`[Socket ${namespace}] Socket error:`, err)
+        // console.error(`[Socket ${namespace}] Socket error:`, err)
         handleError({
           message: typeof err === "string" ? err : "Socket error occurred",
           type: "server",
@@ -135,14 +135,14 @@ export const useSocket = ({
       })
 
       socket.io.on("reconnect_failed", () => {
-        console.error(`[Socket ${namespace}] Reconnection failed`)
+        // console.error(`[Socket ${namespace}] Reconnection failed`)
         handleError({
           message: "Failed to reconnect to server",
           type: "connection",
         })
       })
     } catch (err) {
-      console.error(`[Socket ${namespace}] Failed to initialize:`, err)
+      // console.error(`[Socket ${namespace}] Failed to initialize:`, err)
       handleError({
         message: "Failed to initialize socket connection",
         type: "unknown",
@@ -153,7 +153,7 @@ export const useSocket = ({
 
   const disconnect = useCallback(() => {
     if (socketRef.current) {
-      console.log(`[Socket ${namespace}] Disconnecting...`)
+      // console.log(`[Socket ${namespace}] Disconnecting...`)
       socketRef.current.disconnect()
       socketRef.current = null
       setStatus("disconnected")

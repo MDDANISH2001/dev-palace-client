@@ -95,6 +95,25 @@ export const developerLogin = async (
 };
 
 /**
+ * Verify Email
+ */
+export const verifyEmail = async (
+  token: string
+): Promise<void> => {
+  try {
+    const response = await axiosInstance.put<void>(
+      API_ENDPOINTS.COMMON.VERIFYEMAIL(token),
+    );
+    return response.data;
+  } catch (error) {
+    throw new ApiError(
+      getErrorStatus(error),
+      getErrorMessage(error, "Login failed")
+    );
+  }
+};
+
+/**
  * Logout (clears HTTP-only cookies on backend)
  */
 export const logout = async (): Promise<void> => {
