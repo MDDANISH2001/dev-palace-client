@@ -15,6 +15,7 @@ import ProjectDetails from "./Pages/Projects/ProjectDetails";
 import DeveloperProfile from "./Pages/Developer/DeveloperProfile/DeveloperProfile";
 import { VerifyEmail } from "./Pages/Auth/VerifyEmail";
 import { ChatView } from "./Pages/Chats/ChatView";
+import { ClientProfile } from "./Pages/Clients/Profile/ClientProfile";
 
 function App() {
   const role = JSON.parse(localStorage.getItem("user") || "{}").userType;
@@ -39,7 +40,6 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-
           {/* Protected Routes - Require authentication */}
           <Route
             path="/developer/*"
@@ -86,9 +86,11 @@ function App() {
               />
             }
           />
-
           {/* Public Developer Profile Route */}
-          <Route path="/profile/:devId" element={<DeveloperProfile />} />
+          <Route path="/dev-profile/:devId" element={<DeveloperProfile />} />
+          {/* public Profile of developer */}
+          <Route path="/client-profile/:clientId" element={<ClientProfile />} />
+
           <Route path="/verify-email/:token" element={<VerifyEmail />} />
         </Routes>
       </AnimatePresence>

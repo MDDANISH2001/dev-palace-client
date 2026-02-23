@@ -3,6 +3,7 @@
  * Handles all client-related GET API calls using Axios
  */
 
+import type { IClient } from "@/types/clientTypes/clientAuth.types";
 import axiosInstance from "../axios";
 import { API_ENDPOINTS, ApiError } from "../config";
 import { getErrorMessage, getErrorStatus } from "../utils/error-handler";
@@ -19,28 +20,28 @@ export interface ApiResponse<T> {
 /**
  * Example: Get client by ID
  */
-export const getClientById = async (
-  clientId: string
-): Promise<ApiResponse<any>> => {
-  try {
-    const response = await axiosInstance.get<ApiResponse<any>>(
-      API_ENDPOINTS.CLIENT.CLIENTS + `/${clientId}`
-    );
-    return response.data;
-  } catch (error) {
-    throw new ApiError(
-      getErrorStatus(error),
-      getErrorMessage(error, "Failed to fetch client")
-    );
-  }
-};
+// export const getClientById = async (
+//   clientId: string
+// ): Promise<ApiResponse<Partial<IClient>>> => {
+//   try {
+//     const response = await axiosInstance.get<ApiResponse<Partial<IClient>>>(
+//       API_ENDPOINTS.CLIENT.CLIENTS + `/${clientId}`
+//     );
+//     return response.data;
+//   } catch (error) {
+//     throw new ApiError(
+//       getErrorStatus(error),
+//       getErrorMessage(error, "Failed to fetch client")
+//     );
+//   }
+// };
 
 /**
  * Example: Get client profile (authenticated)
  */
-export const getClientProfile = async (): Promise<ApiResponse<any>> => {
+export const getClientProfile = async (): Promise<ApiResponse<IClient>> => {
   try {
-    const response = await axiosInstance.get<ApiResponse<any>>(
+    const response = await axiosInstance.get<ApiResponse<IClient>>(
       API_ENDPOINTS.CLIENT.PROFILE
     );
     return response.data;
@@ -51,7 +52,6 @@ export const getClientProfile = async (): Promise<ApiResponse<any>> => {
     );
   }
 };
-
 
 /**
  * Example: Get client statistics

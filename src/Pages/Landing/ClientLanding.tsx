@@ -4,6 +4,7 @@ import ClientDashboard from "../Clients/Dashboard/Dashboard.Client";
 import { PostProjectForm } from "../Clients/PostProjects";
 import { ManageDevs } from "../Clients/ManageDevs/ManageDevs";
 import { NotVerified } from "@/components/NotVerified/NotVerified";
+import { ClientProfile } from "../Clients/Profile/ClientProfile";
 // import { ProjectDetails } from "../Projects/ProjectDetails";
 
 export const ClientLanding: React.FC = () => {
@@ -15,6 +16,7 @@ export const ClientLanding: React.FC = () => {
         <Route path="/dashboard" element={<ClientDashboard />} />
         <Route path="/post-project" element={<PostProjectForm />} />
         <Route path="/manage-devs" element={<ManageDevs />} />
+        <Route path="/profile" element={<ClientProfile />} />
       </Routes>
     </div>
   ) : (
